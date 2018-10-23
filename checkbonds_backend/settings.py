@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from datetime import  timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -75,7 +76,8 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'usermanagement.service.authentication.JWTAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
 }
 
@@ -116,6 +118,9 @@ AUTH_PASSWORD_VALIDATORS = [
 JWT_AUTH = {
     'JWT_VERIFY': True,
     'JWT_AUTH_HEADER_PREFIX': 'Token',
+    'JWT_SECRET_KEY': SECRET_KEY,
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_EXPIRATION_DELTA': timedelta(seconds=432000), # Expire after 5 days
 }
 
 
@@ -139,5 +144,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-USER_ID_FAKE_NUM = 209
-JWT_USER_ID_SEPARATER = "____"
+# USER_ID_FAKE_NUM = 209
+# JWT_USER_ID_SEPARATER = "____"

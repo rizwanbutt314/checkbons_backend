@@ -32,7 +32,3 @@ class User(AbstractUser):
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(null=True)
-
-    def update_user_secret_key(self):
-        self.jwt_secret_key = uuid.uuid4()
-        self.save()
